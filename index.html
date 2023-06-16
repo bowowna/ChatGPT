@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ChatGPT (alpha)</title>
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      background-color: #f2f2f2;
+      font-family: Arial, sans-serif;
+    }
+
+    .header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .chat {
+      flex: 1;
+      border: 1px solid #ccc;
+      overflow-y: scroll;
+      padding: 10px;
+      margin: 10px;
+    }
+
+    .input-box {
+      display: flex;
+      margin: 10px;
+    }
+
+    .input-box input {
+      flex: 1;
+      margin-right: 10px;
+    }
+
+    .input-box button {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Chat GPT</h1>
+    </div>
+
+    <div class="chat" id="chat-box">
+      <!-- Здесь будет отображаться чат -->
+    </div>
+
+    <div class="input-box">
+      <input type="text" id="message-input" placeholder="Введите вопрос">
+      <button onclick="sendMessage()">Отправить</button>
+    </div>
+
+    <div class="footer">
+      Made by <a href="about.html" target="_blank">Bowowna</a>. It's not an AI, it's a pre-made chat bot with preconceived responses.
+    </div>
+  </div>
+
+  <script>
+    var preDefinedAnswers = [
+      {
+        question: ["привет", "хай"],
+        answer: ["Привет!", "Приветствую!", "Рад видеть тебя!"]
+      },
+      {
+        question: ["как тебя зовут?", "твое имя?"],
+        answer: ["Меня зовут ЧатДжибити!", "Мое имя - ЧатДжибити!"]
+      },
+      {
+        question: ["какой сегодня день?"],
+        answer: ["Сегодня {{Дата}}.", "Сегодняшняя дата - {{Дата}}."]
+      },
+      {
+        question: ["что делаешь?", "чем занимаешься?"],
+        answer: ["Отвечаю на твои вопросы!", "Помогаю пользователям в чате."]
+      },
+      {
+        question: ["пока", "до свидания"],
+        answer: ["До свидания!", "Удачи!"]
+      }
+    ];
+
+    function sendMessage() {
+      var messageInput = document.getElementById("message-input");
+      var message = messageInput.value.toLowerCase();
+      messageInput.value = "";
+
+      var chatBox = document.getElementById("chat-box");
+      var newMessage = document.createElement("p");
+      newMessage.innerText = "Вы: " + message;
+      chatBox.appendChild(newMessage);
+
+      var answer = findAnswer(message);
+
+      if (answer) {
+        var randomIndex = Math.floor(Math.random() * answer.length);
+        var selectedAnswer = answer[randomIndex];
+
+        var answerMessage = document.createElement("p");
+        answerMessage.innerText = "GPT: " + selectedAnswer.replace("{{Дата}}", getCurrentDate());
+        chatBox.appendChild(answerMessage);
+      } else {
+        var unknownMessage = document.createElement("p");
+        unknownMessage.innerText = "GPT: Извини, не могу ответить на этот вопрос.";
+        chatBox.appendChild(unknownMessage);
+      }
+
+      // Прокрутка вниз, чтобы показать новое сообщение
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function findAnswer(message) {
+      for (var i = 0; i < preDefinedAnswers.length; i++) {
+        var questionPatterns = preDefinedAnswers[i].question;
+        for (var j = 0; j < questionPatterns.length; j++) {
+          if (message.includes(questionPatterns[j].toLowerCase())) {
+            return preDefinedAnswers[i].answer;
+          }
+        }
+      }
+
+      return null;
+    }
+
+    function getCurrentDate() {
+      var currentDate = new Date();
+      return currentDate.toLocaleDateString();
+    }
+
+    var messageInput = document.getElementById("message-input");
+    messageInput.addEventListener("keyup", function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        sendMessage();
+      }
+    });
+  </script>
+</body>
+</html>
