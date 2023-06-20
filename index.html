@@ -60,6 +60,7 @@
 <body>
   <div class="container">
     <div class="header">
+      <img src="1.png" alt="Моя картинка">
       <h1>Чат с предварительными ответами</h1>
     </div>
 
@@ -80,8 +81,8 @@
   <script>
     var preDefinedAnswers = [
       {
-        question: ["привет", "хай"],
-        answer: ["Привет!", "Приветствую!", "Рад видеть тебя!"]
+        question: ["привет", "хай", "здравствуй"],
+        answer: ["Привет!", "Здравствуй!", "Рад видеть тебя!"]
       },
       {
         question: ["как тебя зовут?", "твое имя?"],
@@ -131,10 +132,13 @@
     }
 
     function findAnswer(message) {
+      message = message.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
+
       for (var i = 0; i < preDefinedAnswers.length; i++) {
         var questionPatterns = preDefinedAnswers[i].question;
         for (var j = 0; j < questionPatterns.length; j++) {
-          if (message.includes(questionPatterns[j].toLowerCase())) {
+          var pattern = questionPatterns[j].toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
+          if (message.includes(pattern)) {
             return preDefinedAnswers[i].answer;
           }
         }
