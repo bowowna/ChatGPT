@@ -81,8 +81,8 @@
   <script>
     var preDefinedAnswers = [
       {
-        question: ["привет", "хай", "здравствуй"],
-        answer: ["Привет!", "Здравствуй!", "Рад видеть тебя!"]
+        question: ["привет", "хай"],
+        answer: ["Привет!", "Приветствую!", "Рад видеть тебя!"]
       },
       {
         question: ["как тебя зовут?", "твое имя?"],
@@ -132,13 +132,10 @@
     }
 
     function findAnswer(message) {
-      message = message.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
-
       for (var i = 0; i < preDefinedAnswers.length; i++) {
         var questionPatterns = preDefinedAnswers[i].question;
         for (var j = 0; j < questionPatterns.length; j++) {
-          var pattern = questionPatterns[j].toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
-          if (message.includes(pattern)) {
+          if (message.includes(questionPatterns[j].toLowerCase())) {
             return preDefinedAnswers[i].answer;
           }
         }
