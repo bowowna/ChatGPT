@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ChatGPT (alpha)</title>
+  <title>Чат с предварительными ответами</title>
   <style>
     body, html {
       height: 100%;
@@ -60,7 +60,7 @@
 <body>
   <div class="container">
     <div class="header">
-      <h1>Chat GPT</h1>
+      <h1>Чат с предварительными ответами</h1>
     </div>
 
     <div class="chat" id="chat-box">
@@ -95,14 +95,6 @@
         question: ["что делаешь?", "чем занимаешься?"],
         answer: ["Отвечаю на твои вопросы!", "Помогаю пользователям в чате."]
       },
-        question: ["Кто твой создатель?", "кто тебя создал?" , "Имя человека который создал тебя?" , "Твой создатель?" , "Кто твой создатель?", ],
-        answer: ["Меня создал "@Bowowna"", "Имя моего создателя Денис , его никнейм Bowowna"]
-      
-      },
-      }
-        question: ["как дела??", "как настроение" , "как по жизни?"],
-        answer: ["Поскольку я ИИ я не имею такого свойства", "Как ИИ я не могу ответить на этот вопрос"]
-      },
       {
         question: ["пока", "до свидания"],
         answer: ["До свидания!", "Удачи!"]
@@ -116,7 +108,7 @@
 
       var chatBox = document.getElementById("chat-box");
       var newMessage = document.createElement("p");
-      newMessage.innerText = "Вы: " + message;
+      newMessage.innerText = "Пользователь: " + message;
       chatBox.appendChild(newMessage);
 
       var answer = findAnswer(message);
@@ -126,11 +118,11 @@
         var selectedAnswer = answer[randomIndex];
 
         var answerMessage = document.createElement("p");
-        answerMessage.innerText = "GPT: " + selectedAnswer.replace("{{Дата}}", getCurrentDate());
+        answerMessage.innerText = "ЧатДжибити: " + selectedAnswer.replace("{{Дата}}", getCurrentDate());
         chatBox.appendChild(answerMessage);
       } else {
         var unknownMessage = document.createElement("p");
-        unknownMessage.innerText = "GPT: Извини, не могу ответить на этот вопрос.";
+        unknownMessage.innerText = "ЧатДжибити: Извини, не могу ответить на этот вопрос.";
         chatBox.appendChild(unknownMessage);
       }
 
